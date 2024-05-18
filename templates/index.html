@@ -8,25 +8,76 @@
     <title>YT - Converter</title>
 </head>
 <body>
-    <form action="/download" method="post" class="form">
-        <h1>YouTube-Video Converter</h1>
-
-        <div class="section">
-            <label for="url">URL:</label>
-            <input type="text" id="url" name="url" required>
+    <div class="mainBody">
+        <form class="section1" id="searchForm" action="/search" method="post">
+            <label for="url">Enter a YouTube-URL</label>
+            <div class="inputBar">
+                <input type="text" id="url" name="url" placeholder="https://www.youtube.com/watch?v=aXOChLn5ZdQ" required>
+                <button type="submit">Search</button>
+            </div>
+        </form>
+        <div id="result" style="margin-top: 20px;">
+            <p id="info"></p>
+            <img id="thumbnail" src="" alt="Thumbnail">
+            <div id="downloadContainer" style="margin-top: 20px;"></div>
         </div>
+    </div>
+    <script>
+        document.getElementById("searchForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var form = event.target;
+            var formData = new FormData(form);
+            fetch(form.action, {
+                method: form.method,
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("info").innerText = `${data.author} - ${data.title}`;
+                document.getElementById("thumbnail").src = data.thumbnail;
 
-        <div class="section">
-            <label for="file_format">Choose Filetype:</label>
-            <select id="file_format" name="file_format">
-                <option value="mp3">MP3</option>
-                <option value="mp4">MP4</option>
-            </select>
-        </div>  
+                // Create download form
+                var downloadContainer = document.getElementById("downloadContainer");
+                downloadContainer.innerHTML = ''; // Clear previous content if any
 
-        <div class="section">
-            <button type="submit">Download File</button>
-        </div>
-    </form>
+                var downloadForm = document.createElement("form");
+                downloadForm.action = "/download";
+                downloadForm.method = "post";
+                downloadForm.className = "form";
+
+                var urlInput = document.createElement("input");
+                urlInput.type = "hidden";
+                urlInput.name = "url";
+                urlInput.value = formData.get("url");
+
+                var fileFormatSelect = document.createElement("select");
+                fileFormatSelect.id = "file_format";
+                fileFormatSelect.name = "file_format";
+
+                var mp3Option = document.createElement("option");
+                mp3Option.value = "mp3";
+                mp3Option.innerText = "MP3";
+
+                var mp4Option = document.createElement("option");
+                mp4Option.value = "mp4";
+                mp4Option.innerText = "MP4";
+
+                fileFormatSelect.appendChild(mp3Option);
+                fileFormatSelect.appendChild(mp4Option);
+
+                var downloadButton = document.createElement("button");
+                downloadButton.type = "submit";
+                downloadButton.innerText = "Download Video as";
+                downloadButton.className = "downloadBtn";
+
+                downloadForm.appendChild(urlInput);
+                downloadForm.appendChild(fileFormatSelect);
+                downloadForm.appendChild(downloadButton);
+
+                downloadContainer.appendChild(downloadForm);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
 </body>
 </html>

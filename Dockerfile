@@ -1,15 +1,16 @@
 FROM ubuntu:latest
 
 RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    apt install -y ffmpeg
+    apt-get install -y python3 python3-pip python3-venv ffmpeg
 
 WORKDIR /app
 
-COPY requirements.txt /app/requirements.txt
+RUN python3 -m venv venv
 
-RUN pip3 install -r requirements.txt
+ENV PATH="/app/venv/bin:$PATH"
 
-COPY . /app
+COPY . .
+
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 CMD ["python3", "service.py"]

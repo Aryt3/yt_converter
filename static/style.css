@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #000;
+    background-color: #444444;
     text-align: center;
 }
 
@@ -14,78 +14,115 @@ input, button {
     color: #000;
 }
 
-.form {
+.mainBody {
     position: absolute;
     left: calc(50vw - 250px);
     top: calc(50vh - 300px);
     width: 500px;
-    height: 600px;
-    background-color: rgb(199, 199, 199);
-    border: 1px solid rgb(255, 255, 255);
+    background-color: #3b3b3b;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     text-align: center;
+    padding: 10px;
 }
 
-.form h1 {
-    margin: 20px;
-    letter-spacing: 1px;
+.section1 {
+    width: 100%;
+    text-align: left;
 }
 
-.section label {
+.section1 label {
     position: relative;
-    font-size: 25px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin: 10px;
-    text-align: center;
+    font-size: 15px;
+    color: #fff;
 }
 
-.section input {
+.inputBar {
+    padding-top: 10px;
     position: relative;
-    width: 90%;
-    left: 5%;
-    height: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.inputBar input {
+    border: none;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    width: 80%;
+    position: relative;
+    height: 30px;
+    font-size: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    outline: none;
+    background-color: #c9c9c9;
+}
+
+.inputBar button {
+    width: 20%;
+    border: none;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: #444444;
     font-size: 20px;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.inputBar button:hover {
+    background-color: #525252;
+}
+
+#result p {
+    color: #fff;
+    padding-bottom: 5px;
+    font-size: 18px;
+}
+
+#thumbnail {
+    max-width: 500px;
+}
+
+#info {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.downloadBtn {
+    position: relative;
+    left: -25%;
+    width: 50%;
+    font-size: 20px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: none;
+    letter-spacing: 1px;
+    cursor: pointer;
 }
 
 #file_format {
     position: relative;
-    width: 70px;
-    left: calc(50% - 35px);
-    height: 30px;
+    left: 45%;
+    width: 20%;
     font-size: 20px;
+    border: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 3px;
+    color: #fff;
+    background-color: #444444;
     text-align: center;
-    border: 1px solid #000;
-    border-radius: 2.5px;
-    background-color: #c7c7c7;
-}
-
-.form button {
-    margin: 0;
-    position: relative;
-    width: 275px;
-    top: 20px;
-    left: calc(50% - 137.5px);
-    height: 40px;
-    font-size: 27px;
-    font-weight: 900;
     letter-spacing: 1px;
-    border: 1px solid #000;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #57ff60;
 }
 
-.form button:hover {
-    background-color: #44ca4b;
-}
-
-.section {
+.form {
     width: 100%;
-    min-height: 100px;
-    border-top: 1px solid #000;
-    display: flex;
-    flex-direction: column;
 }

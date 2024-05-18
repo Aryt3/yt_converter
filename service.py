@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, abort
 from pytube import YouTube
 from pydub import AudioSegment
 import os, shutil
@@ -12,6 +12,19 @@ current_file = ""
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/search', methods=['POST'])
+def search():
+    url = request.form['url']
+    yt = YouTube(url)
+
+    thumbnails = yt.vid_info.get('videoDetails', {}).get('thumbnail', {}).get('thumbnails', [])
+    last_thumbnail_url = thumbnails[-1]['url'] if thumbnails else None # Get best resolution thumbnail
+
+    if yt.author:
+        return { 'author': yt.author, 'title': yt.title, 'thumbnail': last_thumbnail_url }
+    else:
+        abort(404, description="Author not found")
 
 # Download Endpoint
 @app.route('/download', methods=['POST'])
